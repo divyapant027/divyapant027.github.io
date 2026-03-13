@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,6 +16,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -40,6 +41,24 @@ export default function Navigation() {
     };
   }, [menuOpen]);
 
+  /* Close mobile menu with Escape key and focus first link when opened */
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+
+    if (overlayRef.current) {
+      const firstLink = overlayRef.current.querySelector<HTMLElement>("a, button");
+      firstLink?.focus();
+    }
+
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
   const isActive = (href: string) => pathname === href;
 
   return (
@@ -51,7 +70,10 @@ export default function Navigation() {
             : "bg-transparent"
         }`}
       >
-        <nav className="section-padding mx-auto flex max-w-7xl items-center justify-between py-5">
+        <nav
+          className="section-padding mx-auto flex max-w-7xl items-center justify-between py-5"
+          aria-label="Primary navigation"
+        >
           {/* Logo — elegant monogram with gold accent */}
           <Link
             href="/"
@@ -115,6 +137,11 @@ export default function Navigation() {
 
       {/* Mobile fullscreen overlay — outside header to avoid backdrop-filter containing block */}
       <div
+        ref={overlayRef}
+        aria-hidden={!menuOpen}
+        onClick={(event) => {
+          if (event.target === overlayRef.current) setMenuOpen(false);
+        }}
         className={`fixed inset-0 z-[55] flex items-center justify-center bg-navy transition-all duration-500 md:hidden ${
           menuOpen
             ? "pointer-events-auto opacity-100"

@@ -329,6 +329,12 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
 /* Reduced motion: skip all GSAP animations */
 @media (prefers-reduced-motion: reduce) {
   * {

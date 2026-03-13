@@ -23,6 +23,8 @@ export default function HeroCollage() {
 
   /* Auto-advance slideshow */
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length);
     }, SLIDE_DURATION);
