@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color palette: "Warm Sophistication" */
-  --color-navy: #1A1A2E;
-  --color-navy-light: #252542;
-  --color-cream: #F5F0EB;
-  --color-cream-dark: #E8E0D8;
-  --color-gold: #C9A96E;
-  --color-gold-light: #D4BA88;
-  --color-text: #2D2D2D;
-  --color-text-light: #6B6B6B;
+  /* Color palette: "Modern Noir" */
+  --color-navy: #0B0C10;
+  --color-navy-light: #161B23;
+  --color-cream: #F8F7F3;
+  --color-cream-dark: #E5E3DA;
+  --color-gold: #EAB543;
+  --color-gold-light: #F3C677;
+  --color-text: #EDEDED;
+  --color-text-light: #A5A5A5;
 
   /* Typography */
   --font-heading: "Playfair Display", serif;
@@ -24,7 +24,9 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-text);
-  background-color: var(--color-cream);
+  background: radial-gradient(circle at top, rgba(234, 181, 67, 0.1), transparent 70%),
+    linear-gradient(180deg, var(--color-navy) 0%, var(--color-navy-light) 44%, var(--color-navy) 100%);
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,7 +39,7 @@ body {
   transform: translateX(-50%);
   z-index: 9999;
   padding: 0.75rem 1.5rem;
-  background: var(--color-gold);
+  background: linear-gradient(90deg, rgba(234, 181, 67, 0.95), rgba(255, 255, 255, 0.85));
   color: var(--color-navy);
   font-weight: 600;
   border-radius: 0 0 0.5rem 0.5rem;
@@ -108,8 +110,56 @@ body {
   display: block;
   width: 48px;
   height: 1px;
-  background: var(--color-gold);
-  opacity: 0.7;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  opacity: 0.85;
+}
+
+/* Button styles */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  color: var(--color-navy);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 35px rgba(234, 181, 67, 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(234, 181, 67, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(234, 181, 67, 0.4);
 }
 
 /* ─── Scroll Indicator ─────────────────────────────────── */
@@ -143,10 +193,11 @@ body {
 .impact-card {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--color-cream-dark);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
   padding: 2.5rem 2rem;
-  background: white;
+  background: radial-gradient(circle at top left, rgba(234, 181, 67, 0.12), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(6px);
   transition:
     transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),

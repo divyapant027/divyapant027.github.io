@@ -170,15 +170,15 @@ export default function HeroCollage() {
             <div ref={ctaRef} className="mt-10 flex flex-col gap-5" style={{ opacity: 0 }}>
               <Link
                 href={hero.cta.href}
-                className="group inline-flex items-center gap-3 text-sm font-medium tracking-[0.1em] uppercase text-gold transition-colors duration-300 hover:text-gold-light"
+                className="btn-primary"
               >
                 {hero.cta.label}
-                <span className="inline-block h-px w-8 bg-gold transition-all duration-300 group-hover:w-12 group-hover:bg-gold-light" />
+                <span className="inline-block h-px w-8 bg-navy transition-all duration-300 group-hover:w-12" />
               </Link>
               <a
                 href="/divya-pant-cv.docx"
                 download
-                className="group inline-flex items-center gap-2.5 text-[0.8125rem] font-medium tracking-[0.08em] uppercase text-cream/60 transition-colors duration-300 hover:text-cream/80"
+                className="btn-secondary"
               >
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5">
                   <path d="M8 2v9M4.5 7.5 8 11l3.5-3.5" strokeLinecap="round" strokeLinejoin="round" />
