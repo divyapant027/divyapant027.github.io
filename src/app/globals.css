@@ -1,0 +1,343 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color palette: "Warm Sophistication" */
+  --color-navy: #1A1A2E;
+  --color-navy-light: #252542;
+  --color-cream: #F5F0EB;
+  --color-cream-dark: #E8E0D8;
+  --color-gold: #C9A96E;
+  --color-gold-light: #D4BA88;
+  --color-text: #2D2D2D;
+  --color-text-light: #6B6B6B;
+
+  /* Typography */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-gold);
+  color: var(--color-navy);
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: top 0.2s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Section padding utility */
+.section-padding {
+  padding-left: clamp(1.5rem, 5vw, 8rem);
+  padding-right: clamp(1.5rem, 5vw, 8rem);
+}
+
+/* ─── Hero Section Refinements ─────────────────────────── */
+
+/* Subtle film-grain texture overlay for depth */
+.hero-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Soft vignette around hero edges */
+.hero-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(26, 26, 46, 0.4) 100%
+  );
+}
+
+/* ─── Hero Image Showcase (animated slideshow) ────────── */
+
+.hero-showcase {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Ken Burns: slow zoom while image is active */
+.hero-showcase-active {
+  animation: heroKenBurns 5s ease-out forwards;
+}
+
+@keyframes heroKenBurns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* ─── Gold Decorative Accents ──────────────────────────── */
+
+/* Thin gold line used as a separator/accent */
+.gold-line {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--color-gold);
+  opacity: 0.7;
+}
+
+/* ─── Scroll Indicator ─────────────────────────────────── */
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(201, 169, 110, 0.15);
+}
+
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  animation: scroll-trace 2s ease-in-out infinite;
+}
+
+@keyframes scroll-trace {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* ─── Impact Card Refinements ──────────────────────────── */
+
+.impact-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-cream-dark);
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  background: white;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.4s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
+/* Gold top accent line that slides in on hover */
+.impact-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.impact-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ─── Stats Section ────────────────────────────────────── */
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ─── Press Strip Separator ────────────────────────────── */
+
+.press-separator {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  opacity: 0.2;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+}
+
+/* ─── CTA Banner Pattern ──────────────────────────────── */
+
+/* ─── Elegant Blockquote ──────────────────────────────── */
+
+.blockquote-elegant {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.blockquote-elegant::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-gold),
+    rgba(201, 169, 110, 0.2)
+  );
+}
+
+/* ─── Card Hover Refinements ──────────────────────────── */
+
+.card-elegant {
+  transition:
+    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-elegant:hover {
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+/* Dark variant */
+.card-elegant-dark {
+  transition:
+    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-elegant-dark:hover {
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 1px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(201, 169, 110, 0.4);
+}
+
+/* ─── Image Treatment ─────────────────────────────────── */
+
+.image-refined {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ─── Link Underline Animation ────────────────────────── */
+
+.link-gold-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-gold-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.link-gold-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Section Label ───────────────────────────────────── */
+
+.section-label {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-gold);
+}
+
+/* ─── Photo Gallery Overlay ───────────────────────────── */
+
+.gallery-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.group:hover .gallery-overlay {
+  opacity: 1;
+}
+
+/* ─── Nav Active Dot ──────────────────────────────────── */
+
+.nav-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Reduced motion: skip all GSAP animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .scroll-line::after {
+    animation: none;
+  }
+}
